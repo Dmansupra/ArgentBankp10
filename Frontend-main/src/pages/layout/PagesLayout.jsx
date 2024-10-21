@@ -12,7 +12,7 @@ export function useSignMethod(signMethod, setSignMethod) {
 export default function Layout() {
   const [signMethod, setSignMethod] = useState("Sign In");
 
-  const name = useSelector((state) => state.userData);
+  const {userName} = useSelector((state) => state.userData);
 
   return (
     <>
@@ -29,7 +29,7 @@ export default function Layout() {
           {signMethod === "Sign Out" && (
             <span className="main-nav-user">
               <i className="fa fa-user-circle"></i>
-              {name.firstName}
+              {userName}
             </span>
           )}
           {signMethod === "Sign In" && (

@@ -7,8 +7,8 @@ const tokenSlice = createSlice({
   },
   reducers: {
     setToken: (state, action) => {
-      console.log(action.payload);
       state.token = action.payload;
+      localStorage.setItem("token", action.payload)
     },
   },
 });
@@ -18,12 +18,13 @@ const userDataSlice = createSlice({
   initialState: {
     firstName: "",
     lastName: "",
+    userName: "",
   },
   reducers: {
     setData: (state, action) => {
-      console.log(action.payload);
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
+      state.userName = action.payload.userName;
     },
   },
 });

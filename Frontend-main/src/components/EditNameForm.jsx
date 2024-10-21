@@ -3,12 +3,11 @@ import { setData } from "../store/store";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function EditNameForm({ setEditing }) {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
 
   const token = useSelector((state) => state.token.token);
-  const userName = useSelector((store) => store.userData);
+  const {userName, firstName, lastName} = useSelector((store) => store.userData);
   const dispatch = useDispatch();
+  const [newUserName, setNewUserName] = useState(userName)
 
   async function handleFormSubmit(event) {
     event.preventDefault();
@@ -18,7 +17,7 @@ export default function EditNameForm({ setEditing }) {
         Authorization: `Bearer  ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ firstName: firstName, lastName: lastName }),
+      body: JSON.stringify({ userName: newUserName }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -34,17 +33,22 @@ export default function EditNameForm({ setEditing }) {
           type="text"
           id="first-name"
           className="edit-input--form"
-          placeholder={userName.firstName}
+          value={newUserName}
+          onChange={(e) => setNewUserName(e.target.value)}
+        />
+        <input
+          type="text"
+          id="first-name"
+          className="edit-input--form"
           value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
+          disabled
         />
         <input
           type="text"
           id="last-name"
           className="edit-input--form"
-          placeholder={userName.lastName}
           value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
+          disabled
         />
       </div>
       <div>
